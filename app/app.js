@@ -44,6 +44,9 @@ import './global-styles';
 // Import root routes
 import createRoutes from './routes';
 
+//styles
+import 'bootstrap/dist/css/bootstrap.css';
+
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
 // Optionally, this could be changed to leverage a created history

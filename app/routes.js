@@ -33,8 +33,27 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    },
-    {
+    }, {
+      path: '/dashboard',
+      name: 'dashBoardPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/DashBoardPage/reducer'),
+          import('containers/DashBoardPage/sagas'),
+          import('containers/DashBoardPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('dashBoardPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
